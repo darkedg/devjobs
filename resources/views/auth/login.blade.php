@@ -15,7 +15,7 @@
                     <div class="flex flex-wrap mb-6">
                         <label for="email" class="block text-gray-700 text-sm mb-2">{{ __('E-Mail Address') }}</label>
 
-                        <input id="email" type="email" class="p-3 bg-gray-200 rounded form-input w-full @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autocomplete="email" autofocus>
+                        <input id="email" type="email" class="p-3 bg-gray-200 rounded form-input w-full @error('email') border border-red-500 @enderror" name="email" value="{{ old('email') }}" autocomplete="email" autofocus>
 
                         @error('email')
                             <span class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 w-full mt-5 text-sm" role="alert">
@@ -26,7 +26,7 @@
 
                     <div class="flex flex-wrap mb-6">
                         <label for="password" class="block text-gray-700 text-sm mb-2">{{ __('Password') }}</label>
-                        <input id="password" type="password" class="p-3 bg-gray-200 rounded form-input w-full @error('password') is-invalid @enderror" name="password" autocomplete="current-password">
+                        <input id="password" type="password" class="p-3 bg-gray-200 rounded form-input w-full @error('password') border border-red-500 @enderror" name="password" autocomplete="current-password">
 
                         @error('password')
                             <span class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 w-full mt-5 text-sm" role="alert">
