@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categoria;
 use App\Models\Vacante;
 use Illuminate\Http\Request;
 
@@ -20,7 +21,7 @@ class VacanteController extends Controller
      */
     public function index()
     {
-        return "Desde VacanteController@index";
+        return view('vacantes.index');
     }
 
     /**
@@ -30,7 +31,13 @@ class VacanteController extends Controller
      */
     public function create()
     {
+        // Consultas
+        $categorias = Categoria::all();
+
+
         //
+        return view('vacantes.create')
+            ->with('categorias', $categorias);
     }
 
     /**
