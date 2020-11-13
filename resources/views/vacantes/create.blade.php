@@ -12,7 +12,13 @@
 @section('content')
   <h1 class="text-2xl text-center mt-10">Nueva Vacante</h1>
 
-  <form class="max-w-lg mx-auto my-10" action="">
+  <form
+    action="{{ route('vacantes.store') }}"
+    method="POST"
+    class="max-w-lg mx-auto my-10"
+  >
+    @csrf
+
     <div class="mb-5">
       <label
         for="titulo"
@@ -24,7 +30,15 @@
         type="text"
         class="p-3 bg-gray-100 rounded form-input w-full @error('titulo') border border-red-500 @enderror"
         name="titulo"
-        placeholder="Escriba un titulo">
+        placeholder="Escriba un titulo"
+        value="{{ old('titulo') }}"
+      >
+      @error('titulo')
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-3 mb-6" role="alert">
+          <strong class="font-bold">Error!</strong>
+          <span class="block">{{ $message }}</span>
+        </div>
+      @enderror
     </div>
 
     <div class="mb-5">
@@ -40,11 +54,21 @@
       >
         <option disabled selected>- Selecciona una opción -</option>
         @foreach ($categorias as $categoria)
-          <option value="{{ $categoria->id }}">
+          <option
+            {{ old('categoria') == $categoria->id ? 'selected' : '' }}
+            value="{{ $categoria->id }}"
+          >
             {{ $categoria->nombre }}
           </option>          
         @endforeach
       </select>
+
+      @error('categoria')
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-3 mb-6" role="alert">
+          <strong class="font-bold">Error!</strong>
+          <span class="block">{{ $message }}</span>
+        </div>
+      @enderror
     </div>
 
     <div class="mb-5">
@@ -60,11 +84,21 @@
       >
         <option disabled selected>- Selecciona una opción -</option>
         @foreach ($experiencias as $experiencia)
-          <option value="{{ $experiencia->id }}">
+          <option
+            {{ old('experiencia') == $experiencia->id ? 'selected' : '' }}
+            value="{{ $experiencia->id }}"
+          >
             {{ $experiencia->nombre }}
           </option>          
         @endforeach
       </select>
+
+      @error('experiencia')
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-3 mb-6" role="alert">
+          <strong class="font-bold">Error!</strong>
+          <span class="block">{{ $message }}</span>
+        </div>
+      @enderror
     </div>
 
     <div class="mb-5">
@@ -80,11 +114,21 @@
       >
         <option disabled selected>- Selecciona una opción -</option>
         @foreach ($ubicaciones as $ubicacion)
-          <option value="{{ $ubicacion->id }}">
+          <option
+            {{ old('ubicacion') == $ubicacion->id ? 'selected' : '' }}
+            value="{{ $ubicacion->id }}"
+          >
             {{ $ubicacion->nombre }}
           </option>          
         @endforeach
       </select>
+
+      @error('ubicacion')
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-3 mb-6" role="alert">
+          <strong class="font-bold">Error!</strong>
+          <span class="block">{{ $message }}</span>
+        </div>
+      @enderror
     </div>
 
     <div class="mb-5">
@@ -100,11 +144,21 @@
       >
         <option disabled selected>- Selecciona una opción -</option>
         @foreach ($salarios as $salario)
-          <option value="{{ $salario->id }}">
+          <option
+            {{ old('salario') == $salario->id ? 'selected' : '' }}
+            value="{{ $salario->id }}"
+          >
             {{ $salario->nombre }}
           </option>          
         @endforeach
       </select>
+
+      @error('salario')
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-3 mb-6" role="alert">
+          <strong class="font-bold">Error!</strong>
+          <span class="block">{{ $message }}</span>
+        </div>
+      @enderror
     </div>
 
     <div class="mb-5">
@@ -115,7 +169,13 @@
 
       <div class="editable p-3 bg-gray-100 rounded form-input w-full text-gray-700"></div>
 
-      <input type="hidden" name="descripcion" id="descripcion">
+      <input type="hidden" name="descripcion" id="descripcion" value="{{ old('descripcion') }}">
+      @error('descripcion')
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-3 mb-6" role="alert">
+          <strong class="font-bold">Error!</strong>
+          <span class="block">{{ $message }}</span>
+        </div>
+      @enderror
     </div>
 
     <div class="mb-5">
@@ -125,16 +185,22 @@
       >Imagen vacante:</label>
 
       <div id="dropzoneDevJobs" class="dropzone rounded bg-gray-100"></div>
-      <input type="hidden" name="imagen" id="imagen">
 
+      <input type="hidden" name="imagen" id="imagen" value="{{ old('imagen') }}">
+      @error('imagen')
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-3 mb-6" role="alert">
+          <strong class="font-bold">Error!</strong>
+          <span class="block">{{ $message }}</span>
+        </div>
+      @enderror
       <p id="error"></p>
     </div>
 
     <div class="mb-5">
       <label
-        for="imagen"
-        class="block text-gray-700 text-sm mb-2"
-      >Habilidades y conocimientos:</label>
+        for="skills"
+        class="block text-gray-700 text-sm mb-5"
+      >Habilidades y conocimientos: <span class="text-xs">(Elige al menos 3)</span></label>
 
       @php
         $skills = ['HTML5', 'CSS3', 'CSSGrid', 'Flexbox', 'JavaScript', 'jQuery', 'Node', 'Angular', 'VueJS', 'ReactJS', 'React Hooks', 'Redux', 'Apollo', 'GraphQL', 'TypeScript', 'PHP', 'Laravel', 'Symfony', 'Python', 'Django', 'ORM', 'Sequelize', 'Mongoose', 'SQL', 'MVC', 'SASS', 'WordPress', 'Express', 'Deno', 'React Native', 'Flutter', 'MobX', 'C#', 'Ruby on Rails']
@@ -142,8 +208,15 @@
 
       <lista-skills
         :skills="{{ json_encode($skills) }}"
+        :oldskills="{{ json_encode( old('skills') ) }}"
       ></lista-skills>
 
+      @error('skills')
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-3 mb-6" role="alert">
+          <strong class="font-bold">Error!</strong>
+          <span class="block">{{ $message }}</span>
+        </div>
+      @enderror
       <p id="error"></p>
     </div>
 
@@ -167,19 +240,23 @@
       // Medium Editor
       const editor = new MediumEditor('.editable', {
         toolbar: {
-          buttons: ['bold', 'italic', 'underline', 'quote', 'anchor', 'justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull', 'orderedList', 'unorderedList', 'h2', 'h3'],
+          buttons: ['bold', 'italic', 'underline', 'quote', 'anchor', 'justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull', 'orderedlist', 'unorderedlist', 'h2', 'h3'],
           static: true,
           sticky: true
         },
         placeholder: {
-          text: 'Información de la vacante'
+          text: 'Información de la vacante, debe contener al menos 50 caracteres'
         }
       });
 
+      // Agrega el input hidden lo que el usuario escribe en midium editor
       editor.subscribe('editableInput', function(eventObj, editable) {
         const contenido = editor.getContent();
         document.querySelector('#descripcion').value = contenido;
       })
+
+      // Llena el editor con el contenido del input hidden
+      editor.setContent( document.querySelector('#descripcion').value );
 
       // Dropzone
       const dropzoneDevJobs = new Dropzone('#dropzoneDevJobs', {
@@ -191,6 +268,19 @@
         maxFiles: 1,
         headers: {
           'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').content
+        },
+        init: function() {
+          if( document.querySelector('#imagen').value.trim() ) {
+            let imagenPublicada = {};
+            imagenPublicada.size = 1234;
+            imagenPublicada.name = document.querySelector('#imagen').value;
+
+            this.options.addedfile.call(this, imagenPublicada);
+            this.options.thumbnail.call(this, imagenPublicada, `/storage/vacantes/${imagenPublicada.name}`);
+
+            imagenPublicada.previewElement.classList.add('dz-success');
+            imagenPublicada.previewElement.classList.add('dz-complete');
+          }
         },
         success: function(file, response) {
           // console.log(file);
@@ -214,7 +304,7 @@
           file.previewElement.parentNode.removeChild(file.previewElement);
 
           params = {
-            imagen: file.nombreServidor
+            imagen: file.nombreServidor ?? document.querySelector('#imagen').value
           }
 
           axios.post('/vacantes/borrarimagen', params)
