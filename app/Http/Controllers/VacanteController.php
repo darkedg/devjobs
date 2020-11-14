@@ -25,7 +25,11 @@ class VacanteController extends Controller
      */
     public function index()
     {
-        return view('vacantes.index');
+        // $vacantes = auth()->user()->vacantes;
+
+        $vacantes = Vacante::where('user_id', auth()->user()->id)->paginate(5);
+
+        return view('vacantes.index', compact('vacantes'));
     }
 
     /**
@@ -69,7 +73,19 @@ class VacanteController extends Controller
             'skills' => 'required'
         ]);
 
-        return "Desde store";
+        // Almacenar en la BD
+        auth()->user()->vacantes()->create([
+            'titulo' => $data['titulo'],
+            'imagen' => $data['imagen'],
+            'descripcion' => $data['descripcion'],
+            'skills' => $data['skills'],
+            'categoria_id' => $data['categoria'],
+            'experiencia_id' => $data['experiencia'],
+            'ubicacion_id' => $data['ubicacion'],
+            'salario_id' => $data['salario'],
+        ]);
+
+        return redirect()->action([VacanteController::class, 'index']);
     }
 
     /**
