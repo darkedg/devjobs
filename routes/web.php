@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CandidatoController;
+use App\Http\Controllers\NotificacionesController;
 use App\Http\Controllers\VacanteController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +34,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     // Subir imagenes
     Route::post('/vacantes/imagen', [VacanteController::class, 'imagen'])->name('vacantes.imagen');
     Route::post('/vacantes/borrarimagen', [VacanteController::class, 'borrarimagen'])->name('vacantes.borrar');
+
+    // Notificaciones
+    Route::get('/notificaciones', NotificacionesController::class)->name('notificaciones');
 });
 
 // Muestra los trabajos en el front end sin autenticación
