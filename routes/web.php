@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CandidatoController;
 use App\Http\Controllers\VacanteController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,5 +37,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
 // Muestra los trabajos en el front end sin autenticación
 Route::get('/vacantes/{vacante}', [VacanteController::class, 'show'])->name('vacantes.show');
+
+// Enviar datos para una vacante
+
+Route::post('/candidatos/store', [CandidatoController::class, 'store'])->name('candidatos.store');
 
 
