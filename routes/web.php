@@ -3,6 +3,7 @@
 use App\Http\Controllers\CandidatoController;
 use App\Http\Controllers\NotificacionesController;
 use App\Http\Controllers\VacanteController;
+use App\Models\Vacante;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,6 +38,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     // Notificaciones
     Route::get('/notificaciones', NotificacionesController::class)->name('notificaciones');
+
+    // Cambiar estado de la vacante
+    Route::post('/vacantes/{vacante}', [VacanteController::class, 'estado'])->name('vacantes.estado');
 });
 
 // Muestra los trabajos en el front end sin autenticación
