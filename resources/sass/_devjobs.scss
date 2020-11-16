@@ -1,4 +1,7 @@
 // editor
+body {
+    font-family: 'Roboto', sans-serif;
+}
 .medium-editor-toolbar-active {
     visibility: visible;
     background: rgba(56, 178, 172, var(--bg-opacity));

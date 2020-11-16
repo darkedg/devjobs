@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\CandidatoController;
+use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\InicioController;
 use App\Http\Controllers\NotificacionesController;
 use App\Http\Controllers\VacanteController;
 use Illuminate\Support\Facades\Route;
@@ -16,13 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes(['verify' => true]);
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // Rutas protegidas
 Route::group(['middleware' => ['auth', 'verified']], function () {
@@ -44,6 +40,12 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     // Notificaciones
     Route::get('/notificaciones', NotificacionesController::class)->name('notificaciones');
 });
+
+// Página de inicio
+Route::get('/', InicioController::class)->name('inicio');
+
+// Categorias
+Route::get('/categorias/{categoria}', [CategoriaController::class, 'show'])->name('categorias.show');
 
 // Muestra los trabajos en el front end sin autenticación
 Route::get('/vacantes/{vacante}', [VacanteController::class, 'show'])->name('vacantes.show');

@@ -13,8 +13,8 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
     @yield('styles')
 
@@ -33,7 +33,7 @@
         <nav class="bg-gray-800 shadow-md py-6">
             <div class="container mx-auto md:px-0">
                 <div class="flex items-center justify-around">
-                    <a class="text-2xl text-white" href="{{ url('/vacantes') }}">
+                    <a class="text-2xl text-white" href="{{ url('/') }}">
                         {{ config('app.name', 'DevJobs') }}
                     </a>
     
