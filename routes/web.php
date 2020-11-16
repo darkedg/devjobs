@@ -31,16 +31,17 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/vacantes', [VacanteController::class, 'index'])->name('vacantes.index');
     Route::get('/vacantes/create', [VacanteController::class, 'create'])->name('vacantes.create');
     Route::post('/vacantes', [VacanteController::class, 'store'])->name('vacantes.store');
+    Route::delete('/vacantes/{vacante}', [VacanteController::class, 'destroy'])->name('vacantes.destroy');
 
     // Subir imagenes
     Route::post('/vacantes/imagen', [VacanteController::class, 'imagen'])->name('vacantes.imagen');
     Route::post('/vacantes/borrarimagen', [VacanteController::class, 'borrarimagen'])->name('vacantes.borrar');
 
-    // Notificaciones
-    Route::get('/notificaciones', NotificacionesController::class)->name('notificaciones');
-
     // Cambiar estado de la vacante
     Route::post('/vacantes/{vacante}', [VacanteController::class, 'estado'])->name('vacantes.estado');
+
+    // Notificaciones
+    Route::get('/notificaciones', NotificacionesController::class)->name('notificaciones');
 });
 
 // Muestra los trabajos en el front end sin autenticación
