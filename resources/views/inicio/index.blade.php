@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('navegacion')
-
+  @include('ui.categoriasnav')
 @endsection
 
 @section('content')
@@ -17,6 +17,7 @@
         <span class="text-teal-500 block">Para Desarrolladores / Diseñadores Web</span>
       </h1>
 
+      @include('ui.buscar')
       
     </div>
     <div class="block lg:w-1/2">

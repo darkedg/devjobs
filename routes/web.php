@@ -48,10 +48,10 @@ Route::get('/', InicioController::class)->name('inicio');
 Route::get('/categorias/{categoria}', [CategoriaController::class, 'show'])->name('categorias.show');
 
 // Muestra los trabajos en el front end sin autenticación
+Route::get('/busqueda/buscar', [VacanteController::class, 'resultados'])->name('vacantes.resultados');
+Route::post('/busqueda/buscar', [VacanteController::class, 'buscar'])->name('vacantes.buscar');
 Route::get('/vacantes/{vacante}', [VacanteController::class, 'show'])->name('vacantes.show');
 
 // Enviar datos para una vacante
 Route::get('/candidatos/{id}', [CandidatoController::class, 'index'])->name('candidatos.index');
 Route::post('/candidatos/store', [CandidatoController::class, 'store'])->name('candidatos.store');
-
-
