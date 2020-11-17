@@ -9,6 +9,7 @@
 @endsection
 
 @section('content')
+
   <h1 class="text-3xl text-center mt-10">{{ $vacante->titulo }}</h1>
 
   <div class="mt-10 mb-20 md:flex items-start">
@@ -51,6 +52,9 @@
 
     </div>
     
-    @include('ui.contacto')
+    @if ($vacante->activa === 1)
+      @include('ui.contacto')        
+    @endif
   </div>
+
 @endsection
